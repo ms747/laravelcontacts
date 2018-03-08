@@ -45,7 +45,7 @@
           "name" : this.data.name,
           "number" : this.data.number
         };
-        axios.put(`http://localhost:8000/api/contact/${id}`,contact);
+        axios.put(`http://localhost:8000/api/contact/${id}`, contact);
         this.swapEditable();
       }
     }
