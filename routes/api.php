@@ -3,16 +3,6 @@
 use Illuminate\Http\Request;
 use App\Contacts;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -41,4 +31,18 @@ Route::delete('/contact/{id}',function($id){
     else{
         return response()->json(["message" => "Contact not found"],404);
     }
+});
+
+Route::put('/contact/{id}',function($id, Request $request){
+    $contact = Contacts::find($id);
+    if($contact){
+        $contact->name = $request->name;
+        $contact->number = $request->number;
+        $contact->save();
+        return response()->json(["message" => "Contact Updated"],201);
+    }
+    else{
+        return response()->json(["message" => "Unable to find the contact"]);
+    }
+    
 });
