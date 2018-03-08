@@ -47580,7 +47580,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47643,6 +47643,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       axios.put("http://localhost:8000/api/contact/" + id, contact);
       this.swapEditable();
+    }
+  },
+  directives: {
+    numericOnly: {
+      bind: function bind(el, binding, vnode) {
+        el.addEventListener('keyup', function (e) {
+          var regex = /^[0-9]*$/;
+          if (!regex.test(el.value)) {
+            el.value = el.value.slice(0, -1);
+          }
+        });
+      }
     }
   }
 });
@@ -47711,9 +47723,10 @@ var render = function() {
                 rawName: "v-model",
                 value: _vm.data.number,
                 expression: "data.number"
-              }
+              },
+              { name: "numericOnly", rawName: "v-numericOnly" }
             ],
-            attrs: { type: "text", size: "10" },
+            attrs: { type: "text", maxlength: "10", size: "10" },
             domProps: { value: _vm.data.number },
             on: {
               keyup: [

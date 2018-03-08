@@ -11,7 +11,7 @@
       {{data.number}}
     </td>
     <td v-else>
-      <input type="text" v-model="data.number" size="10" @keyup.esc="swapEditable()" @keyup.enter="updateChanges(data.id)">
+      <input type="text" v-model="data.number" v-numericOnly maxlength="10" size="10" @keyup.esc="swapEditable()" @keyup.enter="updateChanges(data.id)">
     </td>
     <td v-if="editable">
       <a href="#" @click="swapEditable()" class="btn btn-primary btn-block">Edit</a>
@@ -42,11 +42,23 @@
       },
       updateChanges(id) {
         let contact = {
-          "name" : this.data.name,
-          "number" : this.data.number
+          "name": this.data.name,
+          "number": this.data.number
         };
         axios.put(`http://localhost:8000/api/contact/${id}`, contact);
         this.swapEditable();
+      }
+    },
+    directives: {
+      numericOnly: {
+        bind(el, binding, vnode) {
+          el.addEventListener('keyup', (e) => {
+            let regex = /^[0-9]*$/
+            if (!regex.test(el.value)) {
+              el.value = el.value.slice(0, -1)
+            }
+          })
+        }
       }
     }
   };
