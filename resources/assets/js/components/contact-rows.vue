@@ -1,11 +1,10 @@
 <template>
   <tr>
-    <!-- <td>{{data.id}}</td> -->
     <td v-if="editable">
       {{data.name}}
     </td>
     <td v-else>
-      <input type="text" v-model="data.name" size="10" @keyup.esc="swapEditable()" @keyup.enter="updateChanges(data.id)">
+      <input type="text" ref='srh' v-model="data.name" size="10" @keyup.esc="swapEditable()" @keyup.enter="updateChanges(data.id)" >
     </td>
     <td v-if="editable">
       {{data.number}}
@@ -13,12 +12,12 @@
     <td v-else>
       <input type="text" v-model="data.number" v-numericOnly maxlength="10" size="10" @keyup.esc="swapEditable()" @keyup.enter="updateChanges(data.id)">
     </td>
-    <td v-if="editable">
-      <a href="#" @click="swapEditable()" class="btn btn-primary btn-block">Edit</a>
-      <a href="#" @click="deleteContact(data.id)" class="btn btn-danger btn-block">Delete</a>
+    <td v-if="editable" class="btn-group">
+      <a href="#" @click="swapEditable()" class="btn btn-primary">Edit</a>
+      <a href="#" @click="deleteContact(data.id)" class="btn btn-danger ">Delete</a>
     </td>
     <td v-else>
-      <a href="#" class="btn btn-success btn-block" @click="updateChanges(data.id)">Save</a>
+      <a href="#" class="btn btn-success" @click="updateChanges(data.id)">Save</a>
     </td>
   </tr>
 </template>
@@ -64,5 +63,6 @@
   };
 </script>
 
-<style>
+<style scoped>
+
 </style>

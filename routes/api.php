@@ -46,3 +46,8 @@ Route::put('/contact/{id}',function($id, Request $request){
     }
     
 });
+
+Route::get('/contact/{any}',function($any){
+    $contacts = Contacts::where('name','like','%'.$any.'%')->orWhere('number','like','%'.$any.'%')->get();
+    return response()->json($contacts,201);
+});
